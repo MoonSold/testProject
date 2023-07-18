@@ -6,7 +6,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <link rel="stylesheet" href="{{ asset('js/search.css') }}">
+    <script src="{{ asset('js/search.js') }}"></script>
 {% endblock %}
 
 {% block body %}
@@ -23,7 +23,7 @@
                 <select id="inputBedrooms" class="form-control">
                     <option value="#" selected>Количество кроватей</option>
                     {% for i in 0..10 %}
-                        <option value="{{i}}">{{i}}}</option>
+                        <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -31,7 +31,7 @@
                 <select id="inputBathrooms" class="form-control">
                     <option value="#" selected>Количество ванных комнат</option>
                     {% for i in 0..5 %}
-                        <option value="{{i}}">{{i}}}</option>
+                        <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -39,7 +39,7 @@
                 <select id="inputGarages" class="form-control">
                     <option value="#" selected>Количество гаражей</option>
                     {% for i in 0..4 %}
-                        <option value="{{i}}">{{i}}}</option>
+                        <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -47,7 +47,7 @@
                 <select id="inputStoreys" class="form-control">
                     <option value="#" selected>Количество этажей</option>
                     {% for i in 0..5 %}
-                        <option value="{{i}}">{{i}}}</option>
+                        <option value="{{i}}">{{i}}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -62,7 +62,7 @@
                 <input type="text" class="form-control" id="inputCostMax" placeholder="До">
             </div>
         </div>
-        <button type="button" id = "searchButton" class="btn btn-primary">Поиск</button>
+        <button id="searchButton" class="btn btn-primary">Поиск</button>
     </div>
     <div class="card-deck mb-5">
         {% for house in houses %}
