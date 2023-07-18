@@ -5,10 +5,8 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use App\Components\Images\AutoResize;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use App\Repository\HouseRepository;
 
 class MainController extends AbstractController
 {
@@ -18,6 +16,15 @@ class MainController extends AbstractController
      */
     public function index()
     {
-        return $this->render("base.html.twig");
+        return $this->render("index.html.twig");
+    }
+
+    /**
+     * @Route("/search", name="serchHouse"),
+     */
+    public function serchHouse(HouseRepository $houseRepository)
+    {
+
+        return $this->render("searchHouse.html.twig", ["House" => $houseRepository->findAll()]);
     }
 }

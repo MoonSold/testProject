@@ -1,0 +1,78 @@
+ {% extends 'base.html.twig' %}
+ {% block title %}Страница поиска  {% endblock %}
+ {% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('css/search.css') }}">
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('js/search.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class = "container">
+    <div class = "searchForm mt-5"> 
+        <div class="form-row">
+            <div class="form-group col-md-12">
+            <label for="inputHouseName">Название дома</label>
+            <input type="text" class="form-control" id="inputHouseName" placeholder="Имя дома">
+            </div>
+        </div>
+        <div class = "form-row"> 
+            <div class="form-group col-md-3">
+                <select id="inputBedrooms" class="form-control">
+                    <option value="#" selected>Количество кроватей</option>
+                    {% for i in 0..10 %}
+                        <option value="{{i}}">{{i}}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <select id="inputBathrooms" class="form-control">
+                    <option value="#" selected>Количество ванных комнат</option>
+                    {% for i in 0..5 %}
+                        <option value="{{i}}">{{i}}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <select id="inputGarages" class="form-control">
+                    <option value="#" selected>Количество гаражей</option>
+                    {% for i in 0..4 %}
+                        <option value="{{i}}">{{i}}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group col-md-3">
+                <select id="inputStoreys" class="form-control">
+                    <option value="#" selected>Количество этажей</option>
+                    {% for i in 0..5 %}
+                        <option value="{{i}}">{{i}}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class = "form-row"> 
+            <div class="form-group col-md-4">
+                <label for="inputCostMin">Цена от</label>
+                <input type="text" class="form-control" id="inputCostMin" placeholder="От">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputCostMax">Цена до</label>
+                <input type="text" class="form-control" id="inputCostMax" placeholder="До">
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary">Поиск</button>
+    </div>
+    <div class="card-deck mt-5">
+        <div class="card">
+            <img class="card-img-top" src="..." alt="Card image cap">
+            <div class="card-body">
+            <h5 class="card-title">Название карточки</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+            </div>
+        </div>
+    </div>
+</div>
+  {% endblock %}
