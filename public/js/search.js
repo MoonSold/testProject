@@ -1,5 +1,14 @@
 $(document).ready(function() {
+    $("#inputCostMin").on("input", validateFloat);
+    $("#inputCostMax").on("input", validateFloat);
+    
     $("#searchButton").click(function() {
+        if ($("#inputCostMin").hasClass('is-invalid')) {
+            return; 
+          }
+          if ($("#inputCostMax").hasClass('is-invalid')) {
+            return;
+          }
         let data = {
             "name" : $("#inputHouseName").val(),
             "bedrooms" : $("#inputBedrooms").val(),
@@ -9,6 +18,7 @@ $(document).ready(function() {
             "costMin" : $("#inputCostMin").val(),
             "costMax" : $("#inputCostMax").val()
         }
+
         $.ajax({
             url: "/house/search",
             type: "POST",
@@ -46,3 +56,12 @@ function searchCard(data) {
     });
     $("#overlay").hide()
 }
+
+function validateFloat() {
+    const value = $(this).val();
+    if (/^-?\d*(\.\d+)?$/.test(value)) {
+        $(this).removeClass('is-invalid');
+    } else {
+        $(this).addClass('is-invalid');
+    }
+    }
