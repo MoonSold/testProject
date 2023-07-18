@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\HouseRepository;
 use App\Entity\House;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 
@@ -42,6 +41,7 @@ class MainController extends AbstractController
             return $this->redirect("index");
         }
         $entityManager = $this->getDoctrine()->getManager();
+        $result = "";
         $houseName = trim($request->request->get('name'));
         $bedrooms = $request->request->get('bedrooms');
         $bathrooms = $request->request->get('bathrooms');
@@ -50,31 +50,40 @@ class MainController extends AbstractController
         $costMin = trim($request->request->get('costMin'));
         $costMax = trim($request->request->get('costMax'));
         $queryBuilder = $entityManager->createQueryBuilder();
-        $queryBuilder->select('h')
-            ->from(House::class, 'h');
+        $queryBuilder->select('h')->from(House::class, 'h');
+        $parametrs = [];
         if ($houseName) {
-            $queryBuilder->andWhere('h.name LIKE :name')->setParameters(['name' => '%'.$houseName.'%']);
+            $queryBuilder->andWhere('h.name LIKE :houseName')->setParameters(':houseName', '%'.$houseName.'%');
+            $parametrs[':houseName'] = '%'.$houseName.'%';
         }
         if ($costMin) {
-            $queryBuilder->andWhere('h.cost >= :costMin')->setParameters(['costMin' => $costMin]);
+            $queryBuilder->andWhere('h.price >= :costMin');
+            $parametrs[':costMin'] = $costMin;
         }
         if ($costMax) {
-            $queryBuilder->andWhere('h.cost <= :costMax')->setParameters(['costMax' => $costMax]);
+            $queryBuilder->andWhere('h.price <= :costMax')->setParameters(':costMax',$costMax);
+            $parametrs[':costMax'] = $costMax;
         }
         if ($bedrooms !== '#') {
-            $queryBuilder->andWhere('h.bedrooms = :bedrooms')->setParameter('bedrooms', $bedrooms);
+            $queryBuilder->andWhere('h.bedrooms = :bedrooms')->setParameter(':bedrooms', $bedrooms);
+            $parametrs[':bedrooms'] = $bedrooms;
         }
         if ($bathrooms !== '#') {
-            $queryBuilder->andWhere('h.bathrooms = :bathrooms')->setParameter('bathrooms', $bathrooms);
+            $queryBuilder->andWhere('h.bathrooms = :bathrooms')->setParameter(':bathrooms', $bathrooms);
+            $parametrs[':bathrooms'] = $bathrooms;
         }
         if ($garages !== '#') {
-            $queryBuilder->andWhere('h.garages = :garages')->setParameter('garages', $garages);
+            $queryBuilder->andWhere('h.garages = :garages')->setParameter(':garages', $garages);
+            $parametrs[':garages'] = $garages;
         }
         if ($storeys !== '#') {
-            $queryBuilder->andWhere('h.storeys = :storeys')->setParameter('storeys', $storeys);
+            $queryBuilder->andWhere('h.storeys = :storeys')->setParameter(':storeys', $storeys);
+            $parametrs[':storeys'] = $storeys;
         }
-        $houses = $queryBuilder->getQuery()->getResult();
-        $result = $serializer->serialize($houses, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['id']]);
+        $houses = $queryBuilder->setParameters($parametrs)->getQuery()->getResult();
+        if ($houses) {
+            $result = $serializer->serialize($houses, 'json', [AbstractNormalizer::IGNORED_ATTRIBUTES => ['id']]);
+        }
         return new Response($result);
     }
 }

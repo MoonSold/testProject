@@ -3,3 +3,38 @@
     margin-top: 5%;
 }
 
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    position: absolute; /* Add this line to align the loader */
+    top: 0; /* Add this line to align the loader */
+    bottom: 0; /* Add this line to align the loader */
+    left: 0; /* Add this line to align the loader */
+    right: 0; /* Add this line to align the loader */
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
+    display: flex; /* Add this line to center the loader */
+    justify-content: center; /* Add this line to center the loader */
+    align-items: center; /* Add this line to center the loader */
+  }
+  #notFound {
+    margin-top: 10%;
+  }

@@ -64,13 +64,11 @@
         </div>
         <button id="searchButton" class="btn btn-primary">Поиск</button>
     </div>
-    <div class="card-deck mb-5">
+    <div class="card-deck mb-5 col-12" id="cardContainer">
         {% for house in houses %}
-            {% if loop.index % 3 == 1 %}
-                <div class="row">
-            {% endif %}
+        <div class="col-4">
             <div class="card mt-5">
-                <img class="card-img-top" src="{{ asset('img/house.jpg') }}" alt="Card image cap">
+                <img class="card-img-top" src="{{ asset('img/house.jpg') }}" alt="">
                 <div class="card-body">
                 <h5 class="card-title">{{ house.name }}</h5>
                 <p class="card-text">Кроватей: {{ house.bedrooms }} шт <br> Ванных комнат: {{ house.bathrooms }} шт <br> 
@@ -78,10 +76,13 @@
                 <p class="card-text">Цена: {{ house.price }} у.е.</p>
                 </div>
             </div>
-            {% if loop.index % 3 == 0 or loop.last %}
-                </div>
-            {% endif %}
+        </div>
         {% endfor %}
+    </div>
+</div>
+<div id="overlay" style="display: none;">
+    <div id="loadingIndicator">
+        <div class="loader"></div>
     </div>
 </div>
   {% endblock %}
