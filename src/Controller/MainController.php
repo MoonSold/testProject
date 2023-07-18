@@ -25,6 +25,6 @@ class MainController extends AbstractController
     public function serchHouse(HouseRepository $houseRepository)
     {
 
-        return $this->render("searchHouse.html.twig", ["House" => $houseRepository->findAll()]);
+        return $this->render("searchHouse.html.twig", ["houses" => $houseRepository->findAll()]);
     }
 }

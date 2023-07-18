@@ -62,17 +62,26 @@
                 <input type="text" class="form-control" id="inputCostMax" placeholder="До">
             </div>
         </div>
-        <button type="button" class="btn btn-primary">Поиск</button>
+        <button type="button" id = "searchButton" class="btn btn-primary">Поиск</button>
     </div>
-    <div class="card-deck mt-5">
-        <div class="card">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-            <h5 class="card-title">Название карточки</h5>
-            <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    <div class="card-deck mb-5">
+        {% for house in houses %}
+            {% if loop.index % 3 == 1 %}
+                <div class="row">
+            {% endif %}
+            <div class="card mt-5">
+                <img class="card-img-top" src="{{ asset('img/house.jpg') }}" alt="Card image cap">
+                <div class="card-body">
+                <h5 class="card-title">{{ house.name }}</h5>
+                <p class="card-text">Кроватей: {{ house.bedrooms }} шт <br> Ванных комнат: {{ house.bathrooms }} шт <br> 
+                Этажность: {{ house.storeys }} шт <br> Гаражей: {{ house.garages }} шт</p>
+                <p class="card-text">Цена: {{ house.price }} у.е.</p>
+                </div>
             </div>
-        </div>
+            {% if loop.index % 3 == 0 or loop.last %}
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
 </div>
   {% endblock %}
